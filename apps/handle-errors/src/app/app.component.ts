@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { Component, inject } from '@angular/core';
+import { AppService } from './app.service';
+import { AsyncPipe, UpperCasePipe } from '@angular/common';
 
 @Component({
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [AsyncPipe, UpperCasePipe],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'handle-errors';
+  private readonly service = inject(AppService);
+  public readonly title = 'list of todos';
+
+  public readonly todos$ = this.service.todos$;
 }
